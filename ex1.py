@@ -1,6 +1,9 @@
-a = 5
-n = 6
-for a in range(n):
-    b = input("combiens as tu d abricots?")
-    a = b 
-    print a
+
+#x = input("quel est la date de naissance de Alberts Einstein?")
+#if 1976 <= x <= 1986 :
+#    print "vous avez raison."
+#else :
+#    print "espece d'inculte!"
+x = input("donne un x")
+print floor(x)
+
