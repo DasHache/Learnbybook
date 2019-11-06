@@ -17,7 +17,7 @@ else :
         o == "feuille"
     elif o  == 2 :
         o == "caillou"
-    else o  == 3 :
+    elif o  == 3 :
         o == "ciseau"
         
     j = raw_input("choisissez soit la feuille, soit le caillou, soit le ciseaux")
@@ -27,20 +27,20 @@ else :
             print "egalite"
         elif o == "feuille" :
             print "victoire"
-        else o == "caillou" :
+        elif o == "caillou" :
             print "defaite"
     elif j == "feuille" :
         if o == "caillou" :
             print "victoire"
         elif o == "feuille" :
             print "egalite"
-        else o == "ciseau" :
+        elif o == "ciseau" :
             print "defaite"
-    else j == "caillou" :
+    elif j == "caillou" :
         if o == "caillou" :
             print "egalite"
         elif o == "feuille" :
             print "defaite"
-        else o == "ciseau" :
+        elif o == "ciseau" :
             print "egalite"
     print "bite"
