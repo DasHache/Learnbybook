@@ -14,14 +14,13 @@ else :
     o = randint(1,3)
     
     if o  == 1 :
-        o == "feuille"
+        o = "feuille"
     elif o  == 2 :
-        o == "caillou"
+        o = "caillou"
     elif o  == 3 :
-        o == "ciseau"
+        o = "ciseau"
         
     j = raw_input("choisissez soit la feuille, soit le caillou, soit le ciseaux")
-    print "oki"
     if j == "ciseaux" :
         if o == "ciseaux" :
             print "egalite"
@@ -43,4 +42,4 @@ else :
             print "defaite"
         elif o == "ciseau" :
             print "egalite"
-    print "bite"
+    
