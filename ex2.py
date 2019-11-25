@@ -11,24 +11,25 @@ def justeprix() :
     print "tentative numero", t
     if y == "code triche" :
         print x
-    while t<10 :
-        if t == 5 :
-            print "attention, plus que 5 essais"
-        if x<int(y) :
-            y = raw_input("c'est moins. Combien?")
-            t = t+1
-            print "tentative numero", t
-        if x>int(y) :
-            y = raw_input("c'est plus. Combien?")
-            t = t+1
-            print "tentative numero", t
-        if t == 10 :
-            print "vous avez perdu, la reponse etait", x
+    else :
+        while t<10 :
+            if t == 5 :
+                print "attention, plus que 5 essais"
+            if x<int(y) :
+                y = raw_input("c'est moins. Combien?")
+                t = t+1
+                print "tentative numero", t
+            if x>int(y) :
+                y = raw_input("c'est plus. Combien?")
+                t = t+1
+                print "tentative numero", t
+            if t == 10 :
+                print "vous avez perdu, la reponse etait", x
             #r = raw_input("voulez vous rejouer?")
-        else :
-            print "Vous avez gagne!"
+            else :
+                print "Vous avez gagne!"
             #r = raw_input("voulez vous rejouer?")
-            break
+                break
         
 justeprix()
 r = raw_input("voulez vous rejouer?")
