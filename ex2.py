@@ -5,19 +5,21 @@ from random import randint
 def justeprix() :
     x = randint(30,100)
     print x 
-    y = input("Vous allez jouer a juste prix, donc vous devez deviner le prix d un objet compris entre 30 et 100 francs en 10 tentative. Combien selon vous coute l objet ?")
+    y = raw_input("Vous allez jouer a juste prix, donc vous devez deviner le prix d un objet compris entre 30 et 100 francs en 10 tentative. Combien selon vous coute l objet ?")
     t = 0
     t = t+1
     print "tentative numero", t
+    if y == "code triche" :
+        print x
     while t<10 :
         if t == 5 :
             print "attention, plus que 5 essais"
-        if x<y :
-            y = input("c'est moins. Combien?")
+        if x<int(y) :
+            y = raw_input("c'est moins. Combien?")
             t = t+1
             print "tentative numero", t
-        if x>y :
-            y = input("c'est plus. Combien?")
+        if x>int(y) :
+            y = raw_input("c'est plus. Combien?")
             t = t+1
             print "tentative numero", t
         if t == 10 :
