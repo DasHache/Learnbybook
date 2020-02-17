@@ -13,7 +13,14 @@ while n > -1 :
         # 'in' is a Python operator, it means 'element is contained in the array'
         # 1 in [1,2,3] - returns TRUE
         # 1 not in [1,2,3] - return the opposite - FALSE
-        print ["_" if J1[i] not in lettres else J1[i] for i in range(len(J1))]
+
+        # 4. A result of a LIST COMPREHENSION is... a LIST! suprise?
+        # When Python prints a LIST it prints each element separated by a comma, surrounded by square brackets
+        # So, you need to COVERT a list into a string:
+        # How to make a string:
+        list_of_letters = ["_" if J1[i] not in lettres else J1[i] for i in range(len(J1))]
+        string_from_list = ' '.join(list_of_letters)
+        print string_from_list
        # for i in range(len(J1)) :
         #    if J1[i] == J2 :
          #       print [J2]
