@@ -20,7 +20,8 @@ while n > -1 :
         # How to make a string:
         list_of_letters = ["_" if J1[i] not in lettres else J1[i] for i in range(len(J1))]
         string_from_list = ' '.join(list_of_letters)
-        print string_from_list
+        # 5. For details, see: https://docs.python.org/2/library/stdtypes.html#str.upper
+        print '\n' + string_from_list.upper() + '\n'
        # for i in range(len(J1)) :
         #    if J1[i] == J2 :
          #       print [J2]
