@@ -30,22 +30,36 @@ while n > -1 :
          #       print [J2]
           #  else :
            #     print ("_")
+        print n
+        print list_of_letters
+        print J2
+
+    print n
+    print list_of_letters
+    print J2
             
                        
-    if J2 == J1 :
+    if list_of_letters == J1 :
         print "You win!"
+        print n
+        print list_of_letters
+        print J2
         break
 
 # make the found value saved and write it somewhere
     if J1.find(J2) == -1 :
         if n-1> -1 :
             n=n-1
-        
+            print n
+            print list_of_letters
+            print J2
             print "Vous avez fait une faute, vous avez encore", n, "essaits"
         if n-1< 0 :
             print "Vous avez perdu, le mot etait",J1
-            n=n-1
-            
+            print n
+            print list_of_letters
+            print J2
+            break
             
         
 #print J1.ord(J2)                                                               
