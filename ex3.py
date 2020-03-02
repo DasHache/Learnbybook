@@ -1,4 +1,7 @@
-#programe pendu                                                                  
+#programe pendu
+#import Tkinter as Tk
+#canvas = Tk.Canvas(width=200, height=200)
+#canvas.pack
 J1 = raw_input("Joueur 1, donnez le mot a deviner: \n")
 x = len(J1)
 n = 10
