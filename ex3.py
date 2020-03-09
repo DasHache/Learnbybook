@@ -1,7 +1,7 @@
 #programe pendu
-#import Tkinter as Tk
-#canvas = Tk.Canvas(width=200, height=200)
-#canvas.pack
+import Tkinter as Tk
+canvas = Tk.Canvas(width=200, height=200)
+canvas.pack
 J1 = raw_input("Joueur 1, donnez le mot a deviner: \n")
 x = len(J1)
 n = 10
@@ -16,10 +16,8 @@ while n > -1 :
         string_from_list = ' '.join(list_of_letters)
         print '\n' + string_from_list.upper() + '\n'
 
-
+    list_of_letters = ["_" if J1[i] not in lettres else J1[i] for i in range(len(J1))]
     guess = ''.join(list_of_letters)
-    print 'my guess = ', guess
-    print "checking for a win"
     if guess == J1:
         print "You win!"
         break
@@ -29,18 +27,20 @@ while n > -1 :
 # make the found value saved and write it somewhere
     if J1.find(J2) == -1 :
         if n-1> -1 :
-            n=n-1
-            print n
-            print list_of_letters
-            print J2
+            n = n-1
+            if n == 9 :
+                canvas.create_line(150, 190, 150, 20)
+            if n == 8 :
+                canvas.create_line(150, 20, 20, 20)
+
             print "Vous avez fait une faute, vous avez encore", n, "essaits"
         if n-1< 0 :
             print "Vous avez perdu, le mot etait",J1
-            print n
-            print list_of_letters
-            print J2
+
             break
-            
-        
+
+    canvas.pack()
+    canvas.mainloop()
+
 #print J1.ord(J2)                                                               
 
