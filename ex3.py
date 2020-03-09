@@ -12,39 +12,19 @@ while n > -1 :
     lettres.append(J2) # 2. Add a new entered letter into the array
     if J1.find(J2) > -1 :    
         print "La lettre est presente", J1.count(J2), "fois, a la", ', '.join([str(i+1) for i in range(len(J1)) if J1[i] == J2]), "eme place"
-        # 3. Python operator 'in'
-        # 'in' is a Python operator, it means 'element is contained in the array'
-        # 1 in [1,2,3] - returns TRUE
-        # 1 not in [1,2,3] - return the opposite - FALSE
-
-        # 4. A result of a LIST COMPREHENSION is... a LIST! suprise?
-        # When Python prints a LIST it prints each element separated by a comma, surrounded by square brackets
-        # So, you need to COVERT a list into a string:
-        # How to make a string:
         list_of_letters = ["_" if J1[i] not in lettres else J1[i] for i in range(len(J1))]
         string_from_list = ' '.join(list_of_letters)
-        # 5. For details, see: https://docs.python.org/2/library/stdtypes.html#str.upper
         print '\n' + string_from_list.upper() + '\n'
-       # for i in range(len(J1)) :
-        #    if J1[i] == J2 :
-         #       print [J2]
-          #  else :
-           #     print ("_")
-        print n
-        print list_of_letters
-        print J2
 
-    print n
-    print list_of_letters
-    print J2
-            
-                       
-    if list_of_letters == J1 :
+
+    guess = ''.join(list_of_letters)
+    print 'my guess = ', guess
+    print "checking for a win"
+    if guess == J1:
         print "You win!"
-        print n
-        print list_of_letters
-        print J2
         break
+
+
 
 # make the found value saved and write it somewhere
     if J1.find(J2) == -1 :
