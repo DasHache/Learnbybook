@@ -7,6 +7,7 @@ x = len(J1)
 n = 10
 print "Le mot contient", x,"lettres, vous aurez le droit a 10 erreurs!"
 lettres = [] # 1. Keep all entered letters in this array
+
 while n > -1 :
     J2 = raw_input("Joueur 2, donnez la lettre a essayer: \n")
     lettres.append(J2) # 2. Add a new entered letter into the array
@@ -30,10 +31,14 @@ while n > -1 :
             n = n-1
             if n == 9 :
                 canvas.create_line(150, 190, 150, 20)
-            if n == 8 :
-                canvas.create_line(150, 20, 20, 20)
+                canvas.pack()
+                canvas.mainloop()
+
+
+
 
             print "Vous avez fait une faute, vous avez encore", n, "essaits"
+
         if n-1< 0 :
             print "Vous avez perdu, le mot etait",J1
 
