@@ -32,7 +32,7 @@ while n > -1 :
             if n == 9 :
                 canvas.create_line(150, 190, 150, 20)
                 canvas.pack()
-                canvas.mainloop()
+
 
 
 
