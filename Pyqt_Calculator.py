@@ -1,4 +1,6 @@
 import sys
+from functools import partial
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QStatusBar, QToolBar, QGridLayout
 from PyQt5.QtWidgets import QLineEdit, QPushButton, QVBoxLayout
 
@@ -22,8 +24,9 @@ class PyCalcul(QMainWindow):
         self.setCentralWidget(self._centralWidget)
         self.generalLayout = QVBoxLayout()
         self._centralWidget.setLayout(self.generalLayout)
-        self.create_buttons()
         self.createDisplay()
+        self.create_buttons()
+
 
     def createDisplay(self):
         self.display = QLineEdit()
@@ -60,15 +63,42 @@ class PyCalcul(QMainWindow):
             self.buttons[btnText] = QPushButton(btnText)
             self.buttons[btnText].setFixedSize(50, 50)
             buttonsLayout.addWidget(self.buttons[btnText], pos[0], pos[1])
-            self.generalLayout.addLayout(buttonsLayout)
+        self.generalLayout.addLayout(buttonsLayout)
+
+    def setDisplayText(self, text):
+        self.display.setText(text)
+        self.display.setFocus()
+
+    def displayText(self):
+        return self.display.text()
+
+    def clearDisplay(self):
+        self.setDisplayText('')
+
+class PyCalcCtrl:
+
+    def __init__(self, view):
+        self._view = view
+        self._connectSignals()
 
 
+    def _buildExpression(self, sub_exp):
+        expression = self._view.displayText() + sub_exp
+        self._view.setDisplayText(expression)
+        print(expression)
+
+
+    def _connectSignals(self):
+        self._view.buttons['1'].clicked.connect(partial(self._buildExpression, "1"))
+        self._view.buttons['2'].clicked.connect(partial(self._buildExpression, "2"))
+        self._view.buttons['+'].clicked.connect(partial(self._buildExpression, "+"))
 
 
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = PyCalcul()
-    win.show()
+    view = PyCalcul()
+    view.show()
+    PyCalcCtrl(view=view)
     sys.exit(app.exec_())
