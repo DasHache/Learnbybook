@@ -70,35 +70,52 @@ class PyCalcul(QMainWindow):
         self.display.setFocus()
 
     def displayText(self):
-        return self.display.text()
+        ret = self.display.text()
+        return ret
 
     def clearDisplay(self):
         self.setDisplayText('')
 
 class PyCalcCtrl:
 
-    def __init__(self, view):
+    def __init__(self, model, view):
         self._view = view
+        self._model = model
         self._connectSignals()
+
+    def _calculateResult(self):
+        result = self._model(expression=self._view.displayText())
+        self._view.setDisplayText(result)
 
 
     def _buildExpression(self, sub_exp):
         expression = self._view.displayText() + sub_exp
         self._view.setDisplayText(expression)
-        print(expression)
+
 
 
     def _connectSignals(self):
-        self._view.buttons['1'].clicked.connect(partial(self._buildExpression, "1"))
-        self._view.buttons['2'].clicked.connect(partial(self._buildExpression, "2"))
-        self._view.buttons['+'].clicked.connect(partial(self._buildExpression, "+"))
+        for btnText, btn in self._view.buttons.items():
+            if btnText not in {'=', 'C'}:
+                btn.clicked.connect(partial(self._buildExpression, btnText))
 
+        self._view.buttons['C'].clicked.connect(self._view.clearDisplay)
+        self._view.buttons['='].clicked.connect(self._calculateResult)
 
+        self._view.display.returnPressed.connect(self._calculateResult)
 
+def evaluateExpression(expression) :
+    try:
+        result = str(eval(expression, {}, {}))
+    except Exception:
+        result = "ERROR"
+
+    return result
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    view = PyCalcul()
-    view.show()
-    PyCalcCtrl(view=view)
+    var_view = PyCalcul()
+    var_view.show()
+    model = evaluateExpression
+    PyCalcCtrl(model=model, view=var_view)
     sys.exit(app.exec_())
