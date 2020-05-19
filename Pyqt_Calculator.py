@@ -32,7 +32,7 @@ class PyCalcul(QMainWindow):
         self.display = QLineEdit()
         self.display.setFixedHeight(45)
         self.display.setAlignment(Qt.AlignRight)
-        self.display.setReadOnly(True)
+        self.display.setReadOnly(False)
         self.generalLayout.addWidget(self.display)
 
     def create_buttons(self):
