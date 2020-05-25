@@ -23,6 +23,14 @@ class View(QMainWindow):
         self.my_widget.setLayout(self.my_layout)
 
         self.createWordLineEdit()
+        self.create_button()
+
+
+    def create_button(self):
+        self.button = QPushButton()
+        self.button.setText("tries")
+        self.button.setFixedSize(200, 300)
+        self.my_layout.addWidget(self.button)
 
     def createWordLineEdit(self):
         self.word_LineEdit = QLineEdit()
@@ -44,6 +52,7 @@ class Controler:
 
     def save_new_word(self):
         self.my_model.set_word(self.my_view.word_LineEdit.text())
+
         self.my_view.word_LineEdit.setVisible(False)
 
 
@@ -53,7 +62,7 @@ class Model:
 
     def set_word(self, new_word):
         self.word = new_word
-        print('New word to guess {' + self.word + '} has been saved')
+        #print('New word to guess {' + self.word + '} has been saved')
 
 
 if __name__ == '__main__':
