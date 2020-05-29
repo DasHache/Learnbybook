@@ -84,23 +84,28 @@ class PyCalcCtrl:
         self._connectSignals()
 
     def _calculateResult(self):
+        print('_calculateResults')
         result = self._model(expression=self._view.displayText())
         self._view.setDisplayText(result)
 
 
     def _buildExpression(self, sub_exp):
-        expression = self._view.displayText() + sub_exp
-        self._view.setDisplayText(expression)
-
+        print("_buildExpression:")
+        #expression = self._view.displayText() + sub_exp
+        # self._view.setDisplayText(expression)
+        #self._view.setDisplayText("555")
 
 
     def _connectSignals(self):
-        for btnText, btn in self._view.buttons.items():
-            if btnText not in {'=', 'C'}:
-                btn.clicked.connect(partial(self._buildExpression, btnText))
 
-        self._view.buttons['C'].clicked.connect(self._view.clearDisplay)
+        # for btnText, btn in self._view.buttons.items():
+        #     if btnText not in {'=', 'C'}:
+        #         btn.clicked.connect(partial(self._buildExpression, btnText))
+
+        print(type(partial(self._calculateResult)))
+        print(type(self._calculateResult))
         self._view.buttons['='].clicked.connect(self._calculateResult)
+        #self._view.buttons['='].clicked.connect(partial(self._calculateResult))
 
         self._view.display.returnPressed.connect(self._calculateResult)
 
