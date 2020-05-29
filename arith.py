@@ -1,6 +1,6 @@
 import sys
 from functools import partial
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QEvent
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QStatusBar, QToolBar, QGridLayout
 from PyQt5.QtWidgets import QLineEdit, QPushButton, QVBoxLayout, QTextEdit
 from PyQt5.QtGui import QFont
@@ -27,6 +27,10 @@ class View(QMainWindow):
         self.createHistory()
         self.createTime()
 
+    def eventFilter(self, source, event):
+        if (event.type() == QEvent.KeyPress and source is self.answer):
+            print('key press:', (event.key(), event.text()))
+        return super(View, self).eventFilter(source, event)
 
     def createExpression(self):
         self.x = QLineEdit()
@@ -42,7 +46,7 @@ class View(QMainWindow):
         self.answer.setFixedHeight(45)
         self.answer.setFont(QFont('NewTimesRoman', 30)) 
         self.answer.setAlignment(Qt.AlignLeft)
-        self.answer.setPlaceholderText("0.0")
+        self.answer.setPlaceholderText("Enter the result and press Enter or Space")
         self.answer.setReadOnly(False)   
         self.my_layout.addWidget(self.answer)
 
@@ -78,6 +82,13 @@ class Controler:
         self.my_view.answer.returnPressed.connect(partial(self.check_results))
         self.my_view.answer.setFocus()
 
+        self.my_view.answer.textEdited.connect(partial(self.check_edit))
+        #self.my_view.answer.installEventFilter(self.my_view)
+
+    def check_edit(self, t):
+        if t[-1:] == " ":
+            self.check_results()
+
     def get_op_as_str(self, op):
         if op == operator.truediv:
             return " / "
@@ -103,7 +114,7 @@ class Controler:
         speed = self.my_model.get_speed()
         err = self.my_model.get_avg_error()
         n = self.my_model.get_number()
-        self.my_view.t.setText( '[ {} ] Speed: {:03.3f} x/s; Error: {:03.3f} %; Score: {:03.3f} x/s*%'.format(n, speed, err, int(speed/err*1000)) )
+        self.my_view.t.setText( '[ {} ] Speed: {:03.3f} x/s; Error: {:03.3f} %; Score: {} x/s*%'.format(n, speed, err, int(speed/err*1000)) )
 
         history_text = self.my_view.history.toPlainText()
         new_line = '\n {} = {:03.3f} <--- {} >> {:03.3f}'.format(self.my_view.x.text(), answer_f, result_str, err)
@@ -127,7 +138,7 @@ class Model:
         return ( 'Correct: {:03.3f}, Your error: {:03.3f}% '.format(ret, err) )
 
     def get_avg_error(self):
-        return sum(self.errors)/self.get_number()
+        return sum(self.errors)/self.get_number() + 1e-9 
 
     def get_time(self):
         return (datetime.datetime.now(datetime.timezone.utc) - self.t_start).total_seconds()
