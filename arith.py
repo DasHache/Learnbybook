@@ -103,7 +103,7 @@ class Controler:
         speed = self.my_model.get_speed()
         err = self.my_model.get_avg_error()
         n = self.my_model.get_number()
-        self.my_view.t.setText( '[ {} ] Speed: {:03.3f} x/s; Error: {:03.3f} %; Score: {:03.3f} x/s*%'.format(n, speed, err, speed/err) )
+        self.my_view.t.setText( '[ {} ] Speed: {:03.3f} x/s; Error: {:03.3f} %; Score: {:03.3f} x/s*%'.format(n, speed, err, int(speed/err*1000)) )
 
         history_text = self.my_view.history.toPlainText()
         new_line = '\n {} = {:03.3f} <--- {} >> {:03.3f}'.format(self.my_view.x.text(), answer_f, result_str, err)
