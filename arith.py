@@ -105,8 +105,12 @@ class Controler:
 
     def update(self):
 
-        answer_s = self.my_view.answer.text()
-        answer_f = float(answer_s) if answer_s!="" else 0.0
+        try:
+            answer_s = self.my_view.answer.text()
+            answer_f = float(answer_s) if answer_s!="" else 0.0
+        except:
+            print("exception")
+            return 
         result_str = self.my_model.calc(answer_f)
         self.my_view.result.setText(result_str)
         self.my_view.answer.setText("")
@@ -119,6 +123,7 @@ class Controler:
         history_text = self.my_view.history.toPlainText()
         new_line = '\n {} = {:03.3f} <--- {} >> {:03.3f}'.format(self.my_view.x.text(), answer_f, result_str, err)
         self.my_view.history.setText(history_text + new_line)
+        self.my_view.history.verticalScrollBar().setValue(self.my_view.history.verticalScrollBar().maximum())
 
 
 
