@@ -4,6 +4,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QStatusBar, QToolBar, QGridLayout
 from PyQt5.QtWidgets import QLineEdit, QPushButton, QVBoxLayout
 from PyQt5.QtGui import QFont
+from PyQt5 import QtGui
+from PyQt5.QtGui import QPainter, QBrush, QPen
+
 
 
 def test_button_clicked():
@@ -25,6 +28,7 @@ class View(QMainWindow):
         self.create_button()
         self.createWordLineEdit()
         self.create_buttons()
+        self.drawline()
 
     def create_button(self):
         self.button = QPushButton("X", self.my_widget)
@@ -82,6 +86,14 @@ class View(QMainWindow):
         self.word_LineEdit.setPlaceholderText("Enter a word to guess and press 'Enter'...")
         self.word_LineEdit.setReadOnly(False)
         #self.my_layout.addWidget(self.word_LineEdit)
+
+    def drawline(self):
+        painter = QPainter(self)
+        painter.begin(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setPen(Qt.red)
+        painter.setBrush(Qt.white)
+        painter.drawLine(0, 0, 200, 200)
 
 
 class Controler:
