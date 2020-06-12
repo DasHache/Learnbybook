@@ -6,34 +6,85 @@ from PyQt5.QtGui import QFont
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPainter, QBrush, QPen
 
-class View(QMainWindow):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+class Window(QMainWindow):
 
-        self.setWindowTitle('Hangman')
-        self.setGeometry(100, 100, 800, 700)
+    def __init__(self):
 
-        self.my_widget = QWidget(self)
-        self.setCentralWidget(self.my_widget)
+        super().__init__()
 
-        self.my_layout = QVBoxLayout()
-        self.my_widget.setLayout(self.my_layout)
-        self.drawline()
+        self.title = "PyQt5 Drawing Tutorial"
+
+        self.top= 150
+
+        self.left= 150
+
+        self.width = 500
+
+        self.height = 500
+
+        self.InitWindow()
+
+    def InitWindow(self):
+
+        self.setWindowTitle(self.title)
+
+        self.setGeometry(self.top, self.left, self.width, self.height)
+
+        self.show()
 
 
 
-    def drawline(self):
+    def paintEvent(self, event):
         self.painter = QPainter(self)
         self.painter.begin(self)
         self.painter.setRenderHint(QPainter.Antialiasing)
-        self.painter.setPen(QtCore.Qt.red)
+        self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(0, 0, 200, 200)
+        self.painter.drawLine(300, 100, 400, 200)
+
+       # self.painter.setPen(QtCore.Qt.black)
+       # self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 195, 170, 220)
+
+       # self.painter.setPen(QtCore.Qt.black)
+        #self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 195, 230, 220)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 270, 170, 350)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 270, 230, 350)
+
+#horizontal
+
+        self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
+        self.painter.drawEllipse(176, 150, 45, 45)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 100, 400, 100)
 
 
+#vertical
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(400, 100, 400, 400)
 
-app = QApplication(sys.argv)
-var_view = View()
-var_view.show()
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 100, 200, 150)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 195, 200, 270)
+
+App = QApplication(sys.argv)
+
+window = Window()
+
+sys.exit(App.exec())
 
 sys.exit(app.exec_())
