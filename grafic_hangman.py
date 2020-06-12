@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QLineEdit, QPushButton, QVBoxLayout
 from PyQt5.QtGui import QFont
 from PyQt5 import QtGui
 from PyQt5.QtGui import QPainter, QBrush, QPen
+from PyQt5 import QtCore
 
 
 
@@ -29,6 +30,8 @@ class View(QMainWindow):
         self.createWordLineEdit()
         self.create_buttons()
         self.drawline()
+
+
 
     def create_button(self):
         self.button = QPushButton("X", self.my_widget)
@@ -81,7 +84,7 @@ class View(QMainWindow):
         #self.word_LineEdit.setFixedWidth(600)
         self.word_LineEdit.setFixedSize(600, 40)
         self.word_LineEdit.move(20, 20)
-        self.word_LineEdit.setFont(QFont('NewTimesRoman', 30)) 
+        #self.word_LineEdit.setFont(QFont('NewTimesRoman', 30))
         self.word_LineEdit.setAlignment(Qt.AlignLeft)
         self.word_LineEdit.setPlaceholderText("Enter a word to guess and press 'Enter'...")
         self.word_LineEdit.setReadOnly(False)
@@ -94,6 +97,51 @@ class View(QMainWindow):
         painter.setPen(Qt.red)
         painter.setBrush(Qt.white)
         painter.drawLine(0, 0, 200, 200)
+
+    def paintEvent(self, event):
+        self.painter = QPainter(self)
+        self.painter.begin(self)
+        self.painter.setRenderHint(QPainter.Antialiasing)
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(300, 100, 400, 200)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 195, 170, 220)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 195, 230, 220)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 270, 170, 350)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 270, 230, 350)
+
+        self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
+        self.painter.drawEllipse(176, 150, 45, 45)
+
+        # horizontal
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 100, 400, 100)
+
+        # vertical
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(400, 100, 400, 400)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 100, 200, 150)
+
+        self.painter.setPen(QtCore.Qt.black)
+        self.painter.setBrush(QtCore.Qt.white)
+        self.painter.drawLine(200, 195, 200, 270)
 
 
 class Controler:
