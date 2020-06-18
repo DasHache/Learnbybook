@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import QLineEdit, QPushButton, QVBoxLayout
 from PyQt5.QtGui import QFont
 from PyQt5 import QtGui
 from PyQt5.QtGui import QPainter, QBrush, QPen
-from PyQt5 import QtCore
 
 
 
@@ -43,35 +42,38 @@ class View(QMainWindow):
     def create_buttons(self):
         self.buttons = {}
         buttonsLayout = QGridLayout()
-        buttons = {'a': (0, 0),
-                   'b': (0, 1),
-                   'c': (0, 2),
-                   'd': (0, 3),
-                   'e': (0, 4),
-                   'f': (0, 5),
-                   'g': (0, 6),
-                   'h': (0, 7),
-                   'i': (0, 8),
-                   'j': (0, 9),
-                   'k': (0, 10),
-                   'l': (0, 11),
-                   'm': (0, 12),
-                   'n': (1, 0),
-                   'o': (1, 1),
-                   'p': (1, 2),
-                   'q': (1, 3),
-                   'r': (1, 4),
-                   's': (1, 5),
-                   't': (1, 6),
-                   'u': (1, 7),
-                   'v': (1, 8),
-                   'w': (1, 9),
-                   'x': (1, 10),
-                   'y': (1, 11),
-                   'z': (1, 12),
-                   "'": (2, 6),
-                   '-': (2, 7),
+
+        buttonsLayout.
+        buttons = {'a': (5, 0),
+                   'b': (5, 1),
+                   'c': (5, 2),
+                   'd': (5, 3),
+                   'e': (5, 4),
+                   'f': (5, 5),
+                   'g': (5, 6),
+                   'h': (5, 7),
+                   'i': (5, 8),
+                   'j': (5, 9),
+                   'k': (5, 10),
+                   'l': (5, 11),
+                   'm': (5, 12),
+                   'n': (6, 0),
+                   'o': (6, 1),
+                   'p': (6, 2),
+                   'q': (6, 3),
+                   'r': (6, 4),
+                   's': (6, 5),
+                   't': (6, 6),
+                   'u': (6, 7),
+                   'v': (6, 8),
+                   'w': (6, 9),
+                   'x': (6, 10),
+                   'y': (6, 11),
+                   'z': (6, 12),
+                   "'": (7, 6),
+                   '-': (7, 7),
                    }
+
         for btnText, pos in buttons.items():
             self.buttons[btnText] = QPushButton(btnText)
             self.buttons[btnText].setFixedSize(60, 60)
@@ -121,28 +123,29 @@ class View(QMainWindow):
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 270, 230, 350)
-
+#
         self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
         self.painter.drawEllipse(176, 150, 45, 45)
-
-        # horizontal
+#
+#    
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 100, 400, 100)
-
-        # vertical
+#
+#
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(400, 100, 400, 400)
-
+#
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 100, 200, 150)
-
+#
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 195, 200, 270)
-
+#
+        self.painter.end()
 
 class Controler:
 
