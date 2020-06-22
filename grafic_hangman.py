@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QStatusB
 from PyQt5.QtWidgets import QLineEdit, QPushButton, QVBoxLayout
 from PyQt5.QtGui import QFont
 from PyQt5 import QtGui
+from PyQt5 import QtCore
 from PyQt5.QtGui import QPainter, QBrush, QPen
 
 
@@ -25,60 +26,135 @@ class View(QMainWindow):
         self.my_layout = QVBoxLayout()
         self.my_widget.setLayout(self.my_layout)
 
+
+        self.create_buttons()
         self.create_button()
         self.createWordLineEdit()
-        self.create_buttons()
-        self.drawline()
+
+
 
 
 
     def create_button(self):
-        self.button = QPushButton("X", self.my_widget)
-        #self.button.setGeometry(300, 300, 100, 100)
+        self.button = QPushButton("10", self.my_widget)
         self.button.move(670, 20)
         self.button.setFixedSize(100, 100)
-        #self.my_layout.addWidget(self.button)
 
     def create_buttons(self):
-        self.buttons = {}
-        buttonsLayout = QGridLayout()
 
-        buttonsLayout.
-        buttons = {'a': (5, 0),
-                   'b': (5, 1),
-                   'c': (5, 2),
-                   'd': (5, 3),
-                   'e': (5, 4),
-                   'f': (5, 5),
-                   'g': (5, 6),
-                   'h': (5, 7),
-                   'i': (5, 8),
-                   'j': (5, 9),
-                   'k': (5, 10),
-                   'l': (5, 11),
-                   'm': (5, 12),
-                   'n': (6, 0),
-                   'o': (6, 1),
-                   'p': (6, 2),
-                   'q': (6, 3),
-                   'r': (6, 4),
-                   's': (6, 5),
-                   't': (6, 6),
-                   'u': (6, 7),
-                   'v': (6, 8),
-                   'w': (6, 9),
-                   'x': (6, 10),
-                   'y': (6, 11),
-                   'z': (6, 12),
-                   "'": (7, 6),
-                   '-': (7, 7),
-                   }
+        self.button1 = QPushButton("a", self.my_widget)
+        self.button1.move(20, 500)
+        self.button1.setFixedSize(50, 50)
 
-        for btnText, pos in buttons.items():
-            self.buttons[btnText] = QPushButton(btnText)
-            self.buttons[btnText].setFixedSize(60, 60)
-            buttonsLayout.addWidget(self.buttons[btnText], pos[0], pos[1])
-        self.my_layout.addLayout(buttonsLayout)
+        self.button2 = QPushButton("b", self.my_widget)
+        self.button2.move(80, 500)
+        self.button2.setFixedSize(50, 50)
+
+        self.button3 = QPushButton("c", self.my_widget)
+        self.button3.move(140, 500)
+        self.button3.setFixedSize(50, 50)
+
+        self.button4 = QPushButton("d", self.my_widget)
+        self.button4.move(200, 500)
+        self.button4.setFixedSize(50, 50)
+
+        self.button5 = QPushButton("e", self.my_widget)
+        self.button5.move(260, 500)
+        self.button5.setFixedSize(50, 50)
+
+        self.button6 = QPushButton("f", self.my_widget)
+        self.button6.move(320, 500)
+        self.button6.setFixedSize(50, 50)
+
+        self.button7 = QPushButton("g", self.my_widget)
+        self.button7.move(380, 500)
+        self.button7.setFixedSize(50, 50)
+
+        self.button8 = QPushButton("h", self.my_widget)
+        self.button8.move(440,500)
+        self.button8.setFixedSize(50, 50)
+
+        self.button9 = QPushButton("i", self.my_widget)
+        self.button9.move(500, 500)
+        self.button9.setFixedSize(50, 50)
+
+        self.button10 = QPushButton("j", self.my_widget)
+        self.button10.move(560, 500)
+        self.button10.setFixedSize(50, 50)
+
+        self.button11 = QPushButton("k", self.my_widget)
+        self.button11.move(620, 500)
+        self.button11.setFixedSize(50, 50)
+
+        self.button12 = QPushButton("l", self.my_widget)
+        self.button12.move(680, 500)
+        self.button12.setFixedSize(50, 50)
+
+        self.button13 = QPushButton("m", self.my_widget)
+        self.button13.move(740, 500)
+        self.button13.setFixedSize(50, 50)
+
+        self.button14 = QPushButton("n", self.my_widget)
+        self.button14.move(20, 560)
+        self.button14.setFixedSize(50, 50)
+
+        self.button15 = QPushButton("o", self.my_widget)
+        self.button15.move(80, 560)
+        self.button15.setFixedSize(50, 50)
+
+        self.button16 = QPushButton("p", self.my_widget)
+        self.button16.move(140, 560)
+        self.button16.setFixedSize(50, 50)
+
+        self.button17 = QPushButton("q", self.my_widget)
+        self.button17.move(200, 560)
+        self.button17.setFixedSize(50, 50)
+
+        self.button18 = QPushButton("r", self.my_widget)
+        self.button18.move(260, 560)
+        self.button18.setFixedSize(50, 50)
+
+        self.button19 = QPushButton("s", self.my_widget)
+        self.button19.move(320,560)
+        self.button19.setFixedSize(50, 50)
+
+        self.button20 = QPushButton("t", self.my_widget)
+        self.button20.move(380, 560)
+        self.button20.setFixedSize(50, 50)
+
+        self.button21 = QPushButton("u", self.my_widget)
+        self.button21.move(440, 560)
+        self.button21.setFixedSize(50, 50)
+
+        self.button22 = QPushButton("v", self.my_widget)
+        self.button22.move(500, 560)
+        self.button22.setFixedSize(50, 50)
+
+        self.button23 = QPushButton("w", self.my_widget)
+        self.button23.move(560, 560)
+        self.button23.setFixedSize(50, 50)
+
+        self.button24 = QPushButton("x", self.my_widget)
+        self.button24.move(620, 560)
+        self.button24.setFixedSize(50, 50)
+
+        self.button25 = QPushButton("y", self.my_widget)
+        self.button25.move(680, 560)
+        self.button25.setFixedSize(50, 50)
+
+        self.button26 = QPushButton("z", self.my_widget)
+        self.button26.move(740, 560)
+        self.button26.setFixedSize(50, 50)
+
+        self.button27 = QPushButton("-", self.my_widget)
+        self.button27.move(320, 620)
+        self.button27.setFixedSize(50, 50)
+
+        self.button28 = QPushButton("'", self.my_widget)
+        self.button28.move(440, 620)
+        self.button28.setFixedSize(50, 50)
+
+
 
     def createWordLineEdit(self):
         self.word_LineEdit = QLineEdit("", self.my_widget)
@@ -92,13 +168,6 @@ class View(QMainWindow):
         self.word_LineEdit.setReadOnly(False)
         #self.my_layout.addWidget(self.word_LineEdit)
 
-    def drawline(self):
-        painter = QPainter(self)
-        painter.begin(self)
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setPen(Qt.red)
-        painter.setBrush(Qt.white)
-        painter.drawLine(0, 0, 200, 200)
 
     def paintEvent(self, event):
         self.painter = QPainter(self)
