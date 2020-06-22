@@ -88,3 +88,43 @@ window = Window()
 sys.exit(App.exec())
 
 sys.exit(app.exec_())
+
+
+def create_buttons(self):
+    self.buttons = {}
+    buttonsLayout = QGridLayout()
+    buttons = {'a': (5, 0),
+               'b': (5, 1),
+               'c': (5, 2),
+               'd': (5, 3),
+               'e': (5, 4),
+               'f': (5, 5),
+               'g': (5, 6),
+               'h': (5, 7),
+               'i': (5, 8),
+               'j': (5, 9),
+               'k': (5, 10),
+               'l': (5, 11),
+               'm': (5, 12),
+               'n': (6, 0),
+               'o': (6, 1),
+               'p': (6, 2),
+               'q': (6, 3),
+               'r': (6, 4),
+               's': (6, 5),
+               't': (6, 6),
+               'u': (6, 7),
+               'v': (6, 8),
+               'w': (6, 9),
+               'x': (6, 10),
+               'y': (6, 11),
+               'z': (6, 12),
+               "'": (7, 6),
+               '-': (7, 7),
+               }
+
+    for btnText, pos in buttons.items():
+        self.buttons[btnText] = QPushButton(btnText)
+        self.buttons[btnText].setFixedSize(60, 60)
+        buttonsLayout.addWidget(self.buttons[btnText], pos[0], pos[1])
+    self.my_layout.addLayout(buttonsLayout)
