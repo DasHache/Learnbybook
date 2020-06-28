@@ -9,9 +9,9 @@ from PyQt5 import QtCore
 from PyQt5.QtGui import QPainter, QBrush, QPen
 
 
-
 def test_button_clicked():
     print("test_button_clicked")
+
 
 class View(QMainWindow):
     def __init__(self, parent=None):
@@ -26,22 +26,51 @@ class View(QMainWindow):
         self.my_layout = QVBoxLayout()
         self.my_widget.setLayout(self.my_layout)
 
-
         self.create_buttons()
         self.create_button()
         self.createWordLineEdit()
-
-
-
-
+        self.button1.clicked.connect(type)
+        self.button2.clicked.connect(type)
+        self.button3.clicked.connect(type)
+        self.button4.clicked.connect(type)
+        self.button5.clicked.connect(type)
+        self.button6.clicked.connect(type)
+        self.button7.clicked.connect(type)
+        self.button8.clicked.connect(type)
+        self.button9.clicked.connect(type)
+        self.button10.clicked.connect(type)
+        self.button11.clicked.connect(type)
+        self.button12.clicked.connect(type)
+        self.button13.clicked.connect(type)
+        self.button14.clicked.connect(type)
+        self.button15.clicked.connect(type)
+        self.button16.clicked.connect(type)
+        self.button17.clicked.connect(type)
+        self.button18.clicked.connect(type)
+        self.button19.clicked.connect(type)
+        self.button20.clicked.connect(type)
+        self.button21.clicked.connect(type)
+        self.button22.clicked.connect(type)
+        self.button23.clicked.connect(type)
+        self.button24.clicked.connect(type)
+        self.button25.clicked.connect(type)
+        self.button26.clicked.connect(type)
+        self.button27.clicked.connect(type)
+        self.button28.clicked.connect(type)
 
     def create_button(self):
-        self.button = QPushButton("10", self.my_widget)
+        self.v = "10"
+        self.button = QPushButton(self.v, self.my_widget)
         self.button.move(670, 20)
         self.button.setFixedSize(100, 100)
 
-    def create_buttons(self):
+    def type(self):
+        while eval(self.v) > 0:
+            self.varv = eval(self.v) - 1
+            self.v = str(self.varv)
+            print(self.v)
 
+    def create_buttons(self):
         self.button1 = QPushButton("a", self.my_widget)
         self.button1.move(20, 500)
         self.button1.setFixedSize(50, 50)
@@ -71,7 +100,7 @@ class View(QMainWindow):
         self.button7.setFixedSize(50, 50)
 
         self.button8 = QPushButton("h", self.my_widget)
-        self.button8.move(440,500)
+        self.button8.move(440, 500)
         self.button8.setFixedSize(50, 50)
 
         self.button9 = QPushButton("i", self.my_widget)
@@ -115,7 +144,7 @@ class View(QMainWindow):
         self.button18.setFixedSize(50, 50)
 
         self.button19 = QPushButton("s", self.my_widget)
-        self.button19.move(320,560)
+        self.button19.move(320, 560)
         self.button19.setFixedSize(50, 50)
 
         self.button20 = QPushButton("t", self.my_widget)
@@ -154,20 +183,17 @@ class View(QMainWindow):
         self.button28.move(440, 620)
         self.button28.setFixedSize(50, 50)
 
-
-
     def createWordLineEdit(self):
         self.word_LineEdit = QLineEdit("", self.my_widget)
-        #self.word_LineEdit.setFixedHeight(300)
-        #self.word_LineEdit.setFixedWidth(600)
+        # self.word_LineEdit.setFixedHeight(300)
+        # self.word_LineEdit.setFixedWidth(600)
         self.word_LineEdit.setFixedSize(600, 40)
         self.word_LineEdit.move(20, 20)
-        #self.word_LineEdit.setFont(QFont('NewTimesRoman', 30))
+        # self.word_LineEdit.setFont(QFont('NewTimesRoman', 30))
         self.word_LineEdit.setAlignment(Qt.AlignLeft)
         self.word_LineEdit.setPlaceholderText("Enter a word to guess and press 'Enter'...")
         self.word_LineEdit.setReadOnly(False)
-        #self.my_layout.addWidget(self.word_LineEdit)
-
+        # self.my_layout.addWidget(self.word_LineEdit)
 
     def paintEvent(self, event):
         self.painter = QPainter(self)
@@ -192,29 +218,30 @@ class View(QMainWindow):
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 270, 230, 350)
-#
+        #
         self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
         self.painter.drawEllipse(176, 150, 45, 45)
-#
-#    
+        #
+        #
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 100, 400, 100)
-#
-#
+        #
+        #
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(400, 100, 400, 400)
-#
+        #
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 100, 200, 150)
-#
+        #
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 195, 200, 270)
-#
+        #
         self.painter.end()
+
 
 class Controler:
 
@@ -236,7 +263,7 @@ class Model:
 
     def set_word(self, new_word):
         self.word = new_word
-        #print('New word to guess {' + self.word + '} has been saved')
+        # print('New word to guess {' + self.word + '} has been saved')
 
 
 if __name__ == '__main__':
