@@ -265,7 +265,7 @@ class Controler:
         self.my_view.word_LineEdit.returnPressed.connect(partial(self.save_new_word))
 
         view.button1.clicked.connect(partial(self.f_type_in_controller, '1'))
-        #view.button1.clicked.connect(self.button_text())
+        view.button1.clicked.connect(lambda: self.button_text())
 
         view.button2.clicked.connect(partial(self.my_view.set_button_value, '111'))
 
@@ -274,37 +274,44 @@ class Controler:
         self.my_model.counter -= 1
 
     def button_text(self):
-        self.vv = 10
-        self.vv = self.vv - 1
 
-        if self.vv == 9:
+        if self.my_model.counter == 9:
             self.my_view.button.setText("9")
 
-        if self.vv == 8:
+
+        if self.my_model.counter == 8:
             self.my_view.button.setText("8")
 
-        if self.vv == 7:
+
+        if self.my_model.counter == 7:
             self.my_view.button.setText("7")
 
-        if self.vv == 6:
+
+        if self.my_model.counter == 6:
             self.my_view.button.setText("6")
 
-        if self.vv == 5:
+
+        if self.my_model.counter == 5:
             self.my_view.button.setText("5")
 
-        if self.vv == 4:
-            self.my_view.button.setText("4")
 
-        if self.vv == 3:
+        if self.my_model.counter == 4:
+            self.my_view.button.setText("4")
+            self.my_model.counter
+
+        if self.my_model.counter == 3:
             self.my_view.button.setText("3")
 
-        if self.vv == 2:
+
+        if self.my_model.counter == 2:
             self.my_view.button.setText("2")
 
-        if self.vv == 1:
+
+        if self.my_model.counter == 1:
             self.my_view.button.setText("1")
 
-        if self.vv == 0:
+
+        if self.my_model.counter == 0:
             self.my_view.button.setText("0")
 
 
