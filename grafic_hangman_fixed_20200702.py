@@ -29,6 +29,7 @@ class View(QMainWindow):
         self.create_buttons()
         self.create_button()
         self.createWordLineEdit()
+        self.createLine()
         #self.button1.clicked.connect(partial(self.f_type, '1'))
         self.button2.clicked.connect(partial(self.f_type, '2'))
         self.button3.clicked.connect(self.f_type)
@@ -58,7 +59,12 @@ class View(QMainWindow):
         self.button27.clicked.connect(self.f_type)
         self.button28.clicked.connect(self.f_type)
 
+    def set_button_value(self, v):
+        self.button.setText(v)
+
+
     def create_button(self):
+        self.v = "10"
         self.button = QPushButton(self.v, self.my_widget)
         self.button.move(670, 20)
         self.button.setFixedSize(100, 100)
@@ -191,6 +197,18 @@ class View(QMainWindow):
         self.word_LineEdit.setReadOnly(False)
         # self.my_layout.addWidget(self.word_LineEdit)
 
+    def createLine(self):
+        self.word2_LineEdit = QLineEdit("", self.my_widget)
+
+        self.word2_LineEdit.setFixedSize(600, 40)
+        self.word2_LineEdit.move(20, 20)
+
+        self.word2_LineEdit.setAlignment(Qt.AlignLeft)
+        self.word2_LineEdit.setPlaceholderText("_______")
+        self.word2_LineEdit.setReadOnly(True)
+        self.word2_LineEdit.setVisible(False)
+
+
     def paintEvent(self, event):
         self.painter = QPainter(self)
         self.painter.setRenderHint(QPainter.Antialiasing)
@@ -247,15 +265,24 @@ class Controler:
         self.my_view.word_LineEdit.returnPressed.connect(partial(self.save_new_word))
 
         view.button1.clicked.connect(partial(self.f_type_in_controller, '1'))
+        view.button1.clicked.connect(self.button_text())
+
+        view.button2.clicked.connect(partial(self.my_view.set_button_value, '111'))
 
     def f_type_in_controller(self, value):
         print("f_type_in_controller with value = ", value, " with counter = ", self.my_model.counter)
         self.my_model.counter -= 1
 
+    def button_text(self):
+        self.vv = 10
+        self.vv = self.vv - 1
+        self.my_view.button.setText(str(self.vv))
+
     def save_new_word(self):
         self.my_model.set_word(self.my_view.word_LineEdit.text())
 
         self.my_view.word_LineEdit.setVisible(False)
+        self.my_view.word2_LineEdit.setVisible(True)
 
 
 class Model:

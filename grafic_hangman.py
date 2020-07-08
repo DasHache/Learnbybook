@@ -29,34 +29,39 @@ class View(QMainWindow):
         self.create_buttons()
         self.create_button()
         self.createWordLineEdit()
-        self.button1.clicked.connect(type)
-        self.button2.clicked.connect(type)
-        self.button3.clicked.connect(type)
-        self.button4.clicked.connect(type)
-        self.button5.clicked.connect(type)
-        self.button6.clicked.connect(type)
-        self.button7.clicked.connect(type)
-        self.button8.clicked.connect(type)
-        self.button9.clicked.connect(type)
-        self.button10.clicked.connect(type)
-        self.button11.clicked.connect(type)
-        self.button12.clicked.connect(type)
-        self.button13.clicked.connect(type)
-        self.button14.clicked.connect(type)
-        self.button15.clicked.connect(type)
-        self.button16.clicked.connect(type)
-        self.button17.clicked.connect(type)
-        self.button18.clicked.connect(type)
-        self.button19.clicked.connect(type)
-        self.button20.clicked.connect(type)
-        self.button21.clicked.connect(type)
-        self.button22.clicked.connect(type)
-        self.button23.clicked.connect(type)
-        self.button24.clicked.connect(type)
-        self.button25.clicked.connect(type)
-        self.button26.clicked.connect(type)
-        self.button27.clicked.connect(type)
-        self.button28.clicked.connect(type)
+        self.createLine()
+        #self.button1.clicked.connect(partial(self.f_type, '1'))
+        self.button2.clicked.connect(partial(self.f_type, '2'))
+        self.button3.clicked.connect(self.f_type)
+        self.button4.clicked.connect(self.f_type)
+        self.button5.clicked.connect(self.f_type)
+        self.button6.clicked.connect(self.f_type)
+        self.button7.clicked.connect(self.f_type)
+        self.button8.clicked.connect(self.f_type)
+        self.button9.clicked.connect(self.f_type)
+        self.button10.clicked.connect(self.f_type)
+        self.button11.clicked.connect(self.f_type)
+        self.button12.clicked.connect(self.f_type)
+        self.button13.clicked.connect(self.f_type)
+        self.button14.clicked.connect(self.f_type)
+        self.button15.clicked.connect(self.f_type)
+        self.button16.clicked.connect(self.f_type)
+        self.button17.clicked.connect(self.f_type)
+        self.button18.clicked.connect(self.f_type)
+        self.button19.clicked.connect(self.f_type)
+        self.button20.clicked.connect(self.f_type)
+        self.button21.clicked.connect(self.f_type)
+        self.button22.clicked.connect(self.f_type)
+        self.button23.clicked.connect(self.f_type)
+        self.button24.clicked.connect(self.f_type)
+        self.button25.clicked.connect(self.f_type)
+        self.button26.clicked.connect(self.f_type)
+        self.button27.clicked.connect(self.f_type)
+        self.button28.clicked.connect(self.f_type)
+
+    def set_button_value(self, v):
+        self.button.setText(v)
+
 
     def create_button(self):
         self.v = "10"
@@ -64,11 +69,8 @@ class View(QMainWindow):
         self.button.move(670, 20)
         self.button.setFixedSize(100, 100)
 
-    def type(self):
-        while eval(self.v) > 0:
-            self.varv = eval(self.v) - 1
-            self.v = str(self.varv)
-            print(self.v)
+    def f_type(self, value):
+        print("f_type called with value = ", value)
 
     def create_buttons(self):
         self.button1 = QPushButton("a", self.my_widget)
@@ -195,9 +197,20 @@ class View(QMainWindow):
         self.word_LineEdit.setReadOnly(False)
         # self.my_layout.addWidget(self.word_LineEdit)
 
+    def createLine(self):
+        self.word2_LineEdit = QLineEdit("", self.my_widget)
+
+        self.word2_LineEdit.setFixedSize(600, 40)
+        self.word2_LineEdit.move(20, 20)
+
+        self.word2_LineEdit.setAlignment(Qt.AlignLeft)
+        self.word2_LineEdit.setPlaceholderText("_______")
+        self.word2_LineEdit.setReadOnly(True)
+        self.word2_LineEdit.setVisible(False)
+
+
     def paintEvent(self, event):
         self.painter = QPainter(self)
-        self.painter.begin(self)
         self.painter.setRenderHint(QPainter.Antialiasing)
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
@@ -251,15 +264,62 @@ class Controler:
         self.my_view = view
         self.my_view.word_LineEdit.returnPressed.connect(partial(self.save_new_word))
 
+        view.button1.clicked.connect(partial(self.f_type_in_controller, '1'))
+        #view.button1.clicked.connect(self.button_text())
+
+        view.button2.clicked.connect(partial(self.my_view.set_button_value, '111'))
+
+    def f_type_in_controller(self, value):
+        print("f_type_in_controller with value = ", value, " with counter = ", self.my_model.counter)
+        self.my_model.counter -= 1
+
+    def button_text(self):
+        self.vv = 10
+        self.vv = self.vv - 1
+
+        if self.vv == 9:
+            self.my_view.button.setText("9")
+
+        if self.vv == 8:
+            self.my_view.button.setText("8")
+
+        if self.vv == 7:
+            self.my_view.button.setText("7")
+
+        if self.vv == 6:
+            self.my_view.button.setText("6")
+
+        if self.vv == 5:
+            self.my_view.button.setText("5")
+
+        if self.vv == 4:
+            self.my_view.button.setText("4")
+
+        if self.vv == 3:
+            self.my_view.button.setText("3")
+
+        if self.vv == 2:
+            self.my_view.button.setText("2")
+
+        if self.vv == 1:
+            self.my_view.button.setText("1")
+
+        if self.vv == 0:
+            self.my_view.button.setText("0")
+
+
+
     def save_new_word(self):
         self.my_model.set_word(self.my_view.word_LineEdit.text())
 
         self.my_view.word_LineEdit.setVisible(False)
+        self.my_view.word2_LineEdit.setVisible(True)
 
 
 class Model:
     def __init__(self):
         self.word = "default"
+        self.counter = 10
 
     def set_word(self, new_word):
         self.word = new_word
