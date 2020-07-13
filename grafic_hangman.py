@@ -8,11 +8,6 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPainter, QBrush, QPen
 
-
-def test_button_clicked():
-    print("test_button_clicked")
-
-
 class View(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -209,50 +204,84 @@ class View(QMainWindow):
         self.word2_LineEdit.setVisible(False)
 
 
-    def paintEvent(self, event):
+    def paintEvent(self, event): #wood triangle
         self.painter = QPainter(self)
         self.painter.setRenderHint(QPainter.Antialiasing)
+
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(300, 100, 400, 200)
+
+
+     #left arm
 
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 195, 170, 220)
 
+
+
+
+#right arm
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 195, 230, 220)
 
+
+
+
+
+#left leg
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 270, 170, 350)
 
+
+
+
+
+#right leg
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 270, 230, 350)
-        #
+
+
+
+
+#head
         self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
         self.painter.drawEllipse(176, 150, 45, 45)
-        #
-        #
+
+
+
+
+
+        #wood top
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 100, 400, 100)
-        #
-        #
+
+
+
+
+        #wood base
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(400, 100, 400, 400)
-        #
+
+
+
+        #rope
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 100, 200, 150)
-        #
+
+
+#body
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.white)
         self.painter.drawLine(200, 195, 200, 270)
-        #
+
         self.painter.end()
 
 
@@ -260,6 +289,8 @@ class Controler:
 
     def __init__(self, model, view):
         self.my_model = model
+
+        self.letters = []
 
         self.my_view = view
         self.my_view.word_LineEdit.returnPressed.connect(partial(self.save_new_word))
@@ -270,8 +301,12 @@ class Controler:
         view.button2.clicked.connect(partial(self.my_view.set_button_value, '111'))
 
     def f_type_in_controller(self, value):
-        print("f_type_in_controller with value = ", value, " with counter = ", self.my_model.counter)
         self.my_model.counter -= 1
+        print("f_type_in_controller with value = ", value, " with counter = ", self.my_model.counter)
+        if self.my_model.counter == 0:
+            print("you lost, the word was :", self.my_model.word)
+            sys.exit(app.exec_())
+
 
     def button_text(self):
 
@@ -326,7 +361,7 @@ class Controler:
 class Model:
     def __init__(self):
         self.word = "default"
-        self.counter = 10
+        self.     counter = 10
 
     def set_word(self, new_word):
         self.word = new_word
