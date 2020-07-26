@@ -1,12 +1,11 @@
 import sys
 from functools import partial
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QStatusBar, QToolBar, QGridLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 from PyQt5.QtWidgets import QLineEdit, QPushButton, QVBoxLayout
-from PyQt5.QtGui import QFont
-from PyQt5 import QtGui
-from PyQt5 import QtCore
-from PyQt5.QtGui import QPainter, QBrush, QPen
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtGui import QPainter, QPen
+
 
 class View(QMainWindow):
     def __init__(self, parent=None):
@@ -21,11 +20,13 @@ class View(QMainWindow):
         self.my_layout = QVBoxLayout()
         self.my_widget.setLayout(self.my_layout)
 
+        self.counter = 10
+
         self.create_buttons()
         self.create_button()
         self.createWordLineEdit()
         self.createLine()
-        #self.button1.clicked.connect(partial(self.f_type, '1'))
+        # self.button1.clicked.connect(partial(self.f_type, '1'))
         self.button2.clicked.connect(partial(self.f_type, '2'))
         self.button3.clicked.connect(self.f_type)
         self.button4.clicked.connect(self.f_type)
@@ -56,7 +57,6 @@ class View(QMainWindow):
 
     def set_button_value(self, v):
         self.button.setText(v)
-
 
     def create_button(self):
         self.v = "10"
@@ -203,84 +203,77 @@ class View(QMainWindow):
         self.word2_LineEdit.setReadOnly(True)
         self.word2_LineEdit.setVisible(False)
 
+    def paintEvent(self, event):
 
-    def paintEvent(self, event): #wood triangle
         self.painter = QPainter(self)
+
+
+        # wood base
+        if self.counter == 9:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(400, 100, 400, 400)
+
         self.painter.setRenderHint(QPainter.Antialiasing)
-
         self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(300, 100, 400, 200)
+        self.painter.setBrush(QtCore.Qt.black)
+
+        # head
+        if self.counter == 5:
+            self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
+            self.painter.drawEllipse(176, 150, 45, 45)
+
+        # wood triangle
+        if self.counter == 7:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(300, 100, 400, 200)
 
 
-     #left arm
-
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(200, 195, 170, 220)
-
-
+        # left arm
+        if self.counter == 3:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 195, 170, 220)
 
 
-#right arm
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(200, 195, 230, 220)
+        # right arm
+        if self.counter == 2:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 195, 230, 220)
 
 
+        # left leg
+        if self.counter == 1:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 270, 170, 350)
+
+        # right leg
+        if self.counter == 0:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 270, 230, 350)
+
+        # wood top
+        if self.counter == 8:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 100, 400, 100)
 
 
+        # rope
+        if self.counter == 6:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 100, 200, 150)
 
-#left leg
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(200, 270, 170, 350)
-
-
-
-
-
-#right leg
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(200, 270, 230, 350)
-
-
-
-
-#head
-        self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
-        self.painter.drawEllipse(176, 150, 45, 45)
-
-
-
-
-
-        #wood top
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(200, 100, 400, 100)
-
-
-
-
-        #wood base
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(400, 100, 400, 400)
-
-
-
-        #rope
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(200, 100, 200, 150)
-
-
-#body
-        self.painter.setPen(QtCore.Qt.black)
-        self.painter.setBrush(QtCore.Qt.white)
-        self.painter.drawLine(200, 195, 200, 270)
+        # body
+        if self.counter == 4:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 195, 200, 270)
 
         self.painter.end()
 
@@ -301,55 +294,43 @@ class Controler:
         view.button2.clicked.connect(partial(self.my_view.set_button_value, '111'))
 
     def f_type_in_controller(self, value):
-        self.my_model.counter -= 1
-        print("f_type_in_controller with value = ", value, " with counter = ", self.my_model.counter)
-        if self.my_model.counter == 0:
+        self.my_view.counter -= 1
+        print("f_type_in_controller with value = ", value, " with counter = ", self.my_view.counter)
+        if self.my_view.counter == 0:
             print("you lost, the word was :", self.my_model.word)
             sys.exit(app.exec_())
 
-
     def button_text(self):
 
-        if self.my_model.counter == 9:
+        if self.my_view.counter == 9:
             self.my_view.button.setText("9")
 
-
-        if self.my_model.counter == 8:
+        if self.my_view.counter == 8:
             self.my_view.button.setText("8")
 
-
-        if self.my_model.counter == 7:
+        if self.my_view.counter == 7:
             self.my_view.button.setText("7")
 
-
-        if self.my_model.counter == 6:
+        if self.my_view.counter == 6:
             self.my_view.button.setText("6")
 
-
-        if self.my_model.counter == 5:
+        if self.my_view.counter == 5:
             self.my_view.button.setText("5")
 
-
-        if self.my_model.counter == 4:
+        if self.my_view.counter == 4:
             self.my_view.button.setText("4")
-            self.my_model.counter
 
-        if self.my_model.counter == 3:
+        if self.my_view.counter == 3:
             self.my_view.button.setText("3")
 
-
-        if self.my_model.counter == 2:
+        if self.my_view.counter == 2:
             self.my_view.button.setText("2")
 
-
-        if self.my_model.counter == 1:
+        if self.my_view.counter == 1:
             self.my_view.button.setText("1")
 
-
-        if self.my_model.counter == 0:
+        if self.my_view.counter == 0:
             self.my_view.button.setText("0")
-
-
 
     def save_new_word(self):
         self.my_model.set_word(self.my_view.word_LineEdit.text())
@@ -361,7 +342,7 @@ class Controler:
 class Model:
     def __init__(self):
         self.word = "default"
-        self.     counter = 10
+        self.counter = 10
 
     def set_word(self, new_word):
         self.word = new_word
