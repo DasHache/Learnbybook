@@ -26,37 +26,8 @@ class View(QMainWindow):
         self.create_button()
         self.createWordLineEdit()
         self.createLine()
-        # self.button1.clicked.connect(partial(self.f_type, '1'))
-        self.button2.clicked.connect(partial(self.f_type, '2'))
-        self.button3.clicked.connect(self.f_type)
-        self.button4.clicked.connect(self.f_type)
-        self.button5.clicked.connect(self.f_type)
-        self.button6.clicked.connect(self.f_type)
-        self.button7.clicked.connect(self.f_type)
-        self.button8.clicked.connect(self.f_type)
-        self.button9.clicked.connect(self.f_type)
-        self.button10.clicked.connect(self.f_type)
-        self.button11.clicked.connect(self.f_type)
-        self.button12.clicked.connect(self.f_type)
-        self.button13.clicked.connect(self.f_type)
-        self.button14.clicked.connect(self.f_type)
-        self.button15.clicked.connect(self.f_type)
-        self.button16.clicked.connect(self.f_type)
-        self.button17.clicked.connect(self.f_type)
-        self.button18.clicked.connect(self.f_type)
-        self.button19.clicked.connect(self.f_type)
-        self.button20.clicked.connect(self.f_type)
-        self.button21.clicked.connect(self.f_type)
-        self.button22.clicked.connect(self.f_type)
-        self.button23.clicked.connect(self.f_type)
-        self.button24.clicked.connect(self.f_type)
-        self.button25.clicked.connect(self.f_type)
-        self.button26.clicked.connect(self.f_type)
-        self.button27.clicked.connect(self.f_type)
-        self.button28.clicked.connect(self.f_type)
 
-    def set_button_value(self, v):
-        self.button.setText(v)
+
 
     def create_button(self):
         self.v = "10"
@@ -64,8 +35,6 @@ class View(QMainWindow):
         self.button.move(670, 20)
         self.button.setFixedSize(100, 100)
 
-    def f_type(self, value):
-        print("f_type called with value = ", value)
 
     def create_buttons(self):
         self.button1 = QPushButton("a", self.my_widget)
@@ -199,7 +168,7 @@ class View(QMainWindow):
         self.word2_LineEdit.move(20, 20)
 
         self.word2_LineEdit.setAlignment(Qt.AlignLeft)
-        self.word2_LineEdit.setPlaceholderText("_______")
+        self.word2_LineEdit.setPlaceholderText("_______") ###
         self.word2_LineEdit.setReadOnly(True)
         self.word2_LineEdit.setVisible(False)
 
@@ -208,8 +177,8 @@ class View(QMainWindow):
         self.painter = QPainter(self)
 
 
-        # wood base
-        if self.counter == 9:
+ # wood base
+        if self.counter <= 9:
             self.painter.setPen(QtCore.Qt.black)
             self.painter.setBrush(QtCore.Qt.white)
             self.painter.drawLine(400, 100, 400, 400)
@@ -218,62 +187,72 @@ class View(QMainWindow):
         self.painter.setPen(QtCore.Qt.black)
         self.painter.setBrush(QtCore.Qt.black)
 
-        # head
-        if self.counter == 5:
-            self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
-            self.painter.drawEllipse(176, 150, 45, 45)
+# wood top
+        if self.counter <= 8:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 100, 400, 100)
 
-        # wood triangle
-        if self.counter == 7:
+# wood triangle
+        if self.counter <= 7:
             self.painter.setPen(QtCore.Qt.black)
             self.painter.setBrush(QtCore.Qt.white)
             self.painter.drawLine(300, 100, 400, 200)
 
+ # rope
+        if self.counter <= 6:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 100, 200, 150)
 
-        # left arm
-        if self.counter == 3:
+ # head
+        if self.counter <= 5:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.setPen(QPen(Qt.black, 3, Qt.SolidLine))
+            self.painter.drawEllipse(176, 150, 45, 45)
+
+# body
+        if self.counter <= 4:
+            self.painter.setPen(QtCore.Qt.black)
+            self.painter.setBrush(QtCore.Qt.white)
+            self.painter.drawLine(200, 195, 200, 270)
+
+
+
+# left arm
+        if self.counter <= 3:
             self.painter.setPen(QtCore.Qt.black)
             self.painter.setBrush(QtCore.Qt.white)
             self.painter.drawLine(200, 195, 170, 220)
 
 
-        # right arm
-        if self.counter == 2:
+
+# right arm
+        if self.counter <= 2:
             self.painter.setPen(QtCore.Qt.black)
             self.painter.setBrush(QtCore.Qt.white)
             self.painter.drawLine(200, 195, 230, 220)
 
 
-        # left leg
-        if self.counter == 1:
+# left leg
+        if self.counter <= 1:
             self.painter.setPen(QtCore.Qt.black)
             self.painter.setBrush(QtCore.Qt.white)
             self.painter.drawLine(200, 270, 170, 350)
 
-        # right leg
-        if self.counter == 0:
+
+# right leg
+        if self.counter <= 0:
             self.painter.setPen(QtCore.Qt.black)
             self.painter.setBrush(QtCore.Qt.white)
             self.painter.drawLine(200, 270, 230, 350)
 
-        # wood top
-        if self.counter == 8:
-            self.painter.setPen(QtCore.Qt.black)
-            self.painter.setBrush(QtCore.Qt.white)
-            self.painter.drawLine(200, 100, 400, 100)
 
 
-        # rope
-        if self.counter == 6:
-            self.painter.setPen(QtCore.Qt.black)
-            self.painter.setBrush(QtCore.Qt.white)
-            self.painter.drawLine(200, 100, 200, 150)
 
-        # body
-        if self.counter == 4:
-            self.painter.setPen(QtCore.Qt.black)
-            self.painter.setBrush(QtCore.Qt.white)
-            self.painter.drawLine(200, 195, 200, 270)
+
+
 
         self.painter.end()
 
@@ -290,15 +269,16 @@ class Controler:
 
         view.button1.clicked.connect(partial(self.f_type_in_controller, '1'))
         view.button1.clicked.connect(lambda: self.button_text())
+        view.button1.clicked.connect(lambda: self.my_view.my_widget.repaint())
 
-        view.button2.clicked.connect(partial(self.my_view.set_button_value, '111'))
+
 
     def f_type_in_controller(self, value):
         self.my_view.counter -= 1
         print("f_type_in_controller with value = ", value, " with counter = ", self.my_view.counter)
         if self.my_view.counter == 0:
             print("you lost, the word was :", self.my_model.word)
-            sys.exit(app.exec_())
+
 
     def button_text(self):
 
