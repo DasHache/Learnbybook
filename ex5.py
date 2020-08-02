@@ -3,13 +3,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 
-app = QApplication([])
-window = QWidget()
-window.setWindowTitle('Hang Man')
-window.setGeometry(100, 100, 280, 80)
-window.move(60, 15)
-window.show()
-
 
 J1 = input("Joueur 1, donnez le mot a deviner: \n")
 x = len(J1)

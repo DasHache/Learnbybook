@@ -30,8 +30,7 @@ class View(QMainWindow):
 
 
     def create_button(self):
-        self.v = "10"
-        self.button = QPushButton(self.v, self.my_widget)
+        self.button = QPushButton('10', self.my_widget)
         self.button.move(670, 20)
         self.button.setFixedSize(100, 100)
 
@@ -168,7 +167,7 @@ class View(QMainWindow):
         self.word2_LineEdit.move(20, 20)
 
         self.word2_LineEdit.setAlignment(Qt.AlignLeft)
-        self.word2_LineEdit.setPlaceholderText("_______") ###
+        self.word2_LineEdit.setPlaceholderText("_______") ###########################
         self.word2_LineEdit.setReadOnly(True)
         self.word2_LineEdit.setVisible(False)
 
@@ -267,17 +266,61 @@ class Controler:
         self.my_view = view
         self.my_view.word_LineEdit.returnPressed.connect(partial(self.save_new_word))
 
-        view.button1.clicked.connect(partial(self.f_type_in_controller, '1'))
-        view.button1.clicked.connect(lambda: self.button_text())
-        view.button1.clicked.connect(lambda: self.my_view.my_widget.repaint())
+        #view.button1.clicked.connect(partial(self.f_type_in_controller, '1'))
+        #view.button1.clicked.connect(lambda: self.button_text())
+        #view.button1.clicked.connect(lambda: self.my_view.my_widget.repaint())
+        view.button1.clicked.connect(lambda: self.button_a())
+        view.button1.clicked.connect(lambda: self.my_view.button1.hide())
+
+    # def f_type_in_controller(self, value):
+    #     self.my_view.counter -= 1
+    #     print("f_type_in_controller with value = ", value, " with counter = ", self.my_view.counter)
+    #     if self.my_view.counter == 0:
+    #         print("you lost, the word was :", self.my_model.word)
 
 
 
-    def f_type_in_controller(self, value):
-        self.my_view.counter -= 1
-        print("f_type_in_controller with value = ", value, " with counter = ", self.my_view.counter)
-        if self.my_view.counter == 0:
-            print("you lost, the word was :", self.my_model.word)
+
+
+#function for all buttons
+    def button_a(self):
+        self.letters.append('a')
+        print("counter1 = ", self.my_view.counter)
+
+        if self.my_model.word.find('a') > -1:
+            print("counter2 = ", self.my_view.counter)
+
+            print("La lettre est presente", self.my_model.word.count('a'), "fois, a la",
+                  '  '.join([str(i + 1) for i in range(len(self.my_model.word)) if self.my_model.word[i] == 'a']), "eme place")
+            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in range(len(self.my_model.word))]
+            string_from_list = ' '.join(list_of_letters)
+            print('\n' + string_from_list.upper() + '\n')
+
+            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list))
+
+        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in range(len(self.my_model.word))]
+        guess = ''.join(list_of_letters)
+
+        print("counter3 = ", self.my_view.counter)
+
+        if self.my_model.word.find('a') == -1:
+            if self.my_view.counter - 1 > -1:
+                self.my_view.counter -= 1
+                print("Vous avez fait une faute, vous avez encore", self.my_view.counter, "essaits")
+                print("counter4 = ", self.my_view.counter)
+                self.button_text()
+                self.my_view.my_widget.repaint()
+
+            if self.my_view.counter - 1 < 0:
+                self.my_view.counter -= 1
+                print("Vous avez perdu, le mot etait", self.my_model.word)
+                print("counter5 = ", self.my_view.counter)
+                self.button_text()
+                self.my_view.my_widget.repaint()
+
+        if guess == self.my_model.word:
+            print("counter6 = ", self.my_view.counter)
+            print("You win!")
 
 
     def button_text(self):
@@ -314,7 +357,9 @@ class Controler:
 
     def save_new_word(self):
         self.my_model.set_word(self.my_view.word_LineEdit.text())
-
+        ein_list = ['_' for i in range(len(self.my_model.word))]
+        ein_list = ' '.join(ein_list)
+        self.my_view.word2_LineEdit.setPlaceholderText(str(ein_list))
         self.my_view.word_LineEdit.setVisible(False)
         self.my_view.word2_LineEdit.setVisible(True)
 
@@ -322,7 +367,8 @@ class Controler:
 class Model:
     def __init__(self):
         self.word = "default"
-        self.counter = 10
+
+
 
     def set_word(self, new_word):
         self.word = new_word
