@@ -1,3 +1,6 @@
+import os
+import subprocess
+from subprocess import Popen
 import sys
 from functools import partial
 from PyQt5.QtCore import Qt
@@ -27,6 +30,19 @@ class View(QMainWindow):
         self.createWordLineEdit()
         self.createLine()
         self.createlw()
+        self.createyesno()
+
+# yes no buttons
+    def createyesno(self):
+        self.buttonno = QPushButton("No", self.my_widget)
+        self.buttonno.move(470, 400)
+        self.buttonno.setFixedSize(100, 50)
+        self.buttonno.setVisible(False)
+
+        self.buttonyes = QPushButton('Yes', self.my_widget)
+        self.buttonyes.move(250, 400)
+        self.buttonyes.setFixedSize(100, 50)
+        self.buttonyes.setVisible(False)
 
 # loose or win button
     def createlw(self):
@@ -248,11 +264,15 @@ class View(QMainWindow):
 
 class Controler:
 
+
+
     def __init__(self, model, view):
         self.my_model = model
 
         self.letters = []
-
+        self.list_of_letters = []
+        self.string_from_list = ''
+        self.guess = ''
 
         self.my_view = view
         self.my_view.word_LineEdit.returnPressed.connect(partial(self.save_new_word))
@@ -341,19 +361,78 @@ class Controler:
         view.button28.clicked.connect(lambda: self.button_t_())
         view.button28.clicked.connect(lambda: self.my_view.button28.hide())
 
+        view.buttonno.clicked.connect(lambda: self.button_no())
+        view.buttonyes.clicked.connect(lambda: self.button_yes())
+
+    def button_no(self):
+        quit()
+
+    def button_yes(self):
+        self.rerun()
+
+
+    def rerun(self):
+        self.my_view.buttonno.setVisible(False)
+        self.my_view.buttonyes.setVisible(False)
+        self.my_view.buttonlw.setVisible(False)
+        self.my_view.counter = 10
+        self.my_view.button.setText('tries : \n 10')
+        self.my_view.button1.show()
+        self.my_view.button2.show()
+        self.my_view.button3.show()
+        self.my_view.button4.show()
+        self.my_view.button5.show()
+        self.my_view.button6.show()
+        self.my_view.button7.show()
+        self.my_view.button8.show()
+        self.my_view.button9.show()
+        self.my_view.button10.show()
+        self.my_view.button11.show()
+        self.my_view.button12.show()
+        self.my_view.button13.show()
+        self.my_view.button14.show()
+        self.my_view.button15.show()
+        self.my_view.button16.show()
+        self.my_view.button17.show()
+        self.my_view.button18.show()
+        self.my_view.button19.show()
+        self.my_view.button20.show()
+        self.my_view.button21.show()
+        self.my_view.button22.show()
+        self.my_view.button23.show()
+        self.my_view.button24.show()
+        self.my_view.button25.show()
+        self.my_view.button26.show()
+        self.my_view.button27.show()
+        self.my_view.button28.show()
+        self.my_view.word_LineEdit.setReadOnly(False)
+        self.my_view.word_LineEdit.setVisible(True)
+        self.my_view.word_LineEdit.setPlaceholderText("Enter a word to guess and press 'Enter'...")
+        self.my_view.word2_LineEdit.setReadOnly(True)
+        self.my_view.word2_LineEdit.setVisible(False)
+        self.letters = []
+        self.list_of_letters = []
+        self.string_from_list = ''
+        self.guess = ''
+
+        self.my_view.my_widget.repaint()
+
+
+
+
     # function for all buttons
     def button_a(self):
         self.letters.append('a')
 
         if self.my_model.word.find('a') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('a') == -1:
             if self.my_view.counter - 1 > -1:
@@ -367,23 +446,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_b(self):
         self.letters.append('b')
 
         if self.my_model.word.find('b') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('b') == -1:
             if self.my_view.counter - 1 > -1:
@@ -397,23 +480,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_c(self):
         self.letters.append('c')
 
         if self.my_model.word.find('c') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('c') == -1:
             if self.my_view.counter - 1 > -1:
@@ -428,23 +515,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_d(self):
         self.letters.append('d')
 
         if self.my_model.word.find('d') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('d') == -1:
             if self.my_view.counter - 1 > -1:
@@ -458,23 +549,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_e(self):
         self.letters.append('e')
 
         if self.my_model.word.find('e') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('e') == -1:
             if self.my_view.counter - 1 > -1:
@@ -488,24 +583,28 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
 
     def button_f(self):
         self.letters.append('f')
 
         if self.my_model.word.find('f') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('f') == -1:
             if self.my_view.counter - 1 > -1:
@@ -519,23 +618,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_g(self):
         self.letters.append('g')
 
         if self.my_model.word.find('g') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('g') == -1:
             if self.my_view.counter - 1 > -1:
@@ -549,23 +652,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_h(self):
         self.letters.append('h')
 
         if self.my_model.word.find('h') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('h') == -1:
             if self.my_view.counter - 1 > -1:
@@ -579,23 +686,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_i(self):
         self.letters.append('i')
 
         if self.my_model.word.find('i') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('i') == -1:
             if self.my_view.counter - 1 > -1:
@@ -609,23 +720,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_j(self):
         self.letters.append('j')
 
         if self.my_model.word.find('j') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('j') == -1:
             if self.my_view.counter - 1 > -1:
@@ -639,23 +754,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_k(self):
         self.letters.append('k')
 
         if self.my_model.word.find('k') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('k') == -1:
             if self.my_view.counter - 1 > -1:
@@ -669,23 +788,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_l(self):
         self.letters.append('l')
 
         if self.my_model.word.find('l') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('l') == -1:
             if self.my_view.counter - 1 > -1:
@@ -699,23 +822,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_m(self):
         self.letters.append('m')
 
         if self.my_model.word.find('m') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('m') == -1:
             if self.my_view.counter - 1 > -1:
@@ -729,23 +856,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_n(self):
         self.letters.append('n')
 
         if self.my_model.word.find('n') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('n') == -1:
             if self.my_view.counter - 1 > -1:
@@ -759,23 +890,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_o(self):
         self.letters.append('o')
 
         if self.my_model.word.find('o') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('o') == -1:
             if self.my_view.counter - 1 > -1:
@@ -789,23 +924,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_p(self):
         self.letters.append('p')
 
         if self.my_model.word.find('p') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('p') == -1:
             if self.my_view.counter - 1 > -1:
@@ -819,23 +958,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_q(self):
         self.letters.append('q')
 
         if self.my_model.word.find('q') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('q') == -1:
             if self.my_view.counter - 1 > -1:
@@ -849,23 +992,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_r(self):
         self.letters.append('r')
 
         if self.my_model.word.find('r') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('r') == -1:
             if self.my_view.counter - 1 > -1:
@@ -879,23 +1026,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_s(self):
         self.letters.append('s')
 
         if self.my_model.word.find('s') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('s') == -1:
             if self.my_view.counter - 1 > -1:
@@ -909,23 +1060,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_t(self):
         self.letters.append('t')
 
         if self.my_model.word.find('t') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('t') == -1:
             if self.my_view.counter - 1 > -1:
@@ -939,23 +1094,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_u(self):
         self.letters.append('u')
 
         if self.my_model.word.find('u') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('u') == -1:
             if self.my_view.counter - 1 > -1:
@@ -969,23 +1128,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_v(self):
         self.letters.append('v')
 
         if self.my_model.word.find('v') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('v') == -1:
             if self.my_view.counter - 1 > -1:
@@ -999,23 +1162,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_w(self):
         self.letters.append('w')
 
         if self.my_model.word.find('w') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('w') == -1:
             if self.my_view.counter - 1 > -1:
@@ -1029,23 +1196,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_x(self):
         self.letters.append('x')
 
         if self.my_model.word.find('x') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('x') == -1:
             if self.my_view.counter - 1 > -1:
@@ -1059,23 +1230,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_y(self):
         self.letters.append('y')
 
         if self.my_model.word.find('y') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('y') == -1:
             if self.my_view.counter - 1 > -1:
@@ -1089,23 +1264,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_z(self):
         self.letters.append('z')
 
         if self.my_model.word.find('z') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('z') == -1:
             if self.my_view.counter - 1 > -1:
@@ -1119,23 +1298,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button__(self):
         self.letters.append('-')
 
         if self.my_model.word.find('-') > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find('-') == -1:
             if self.my_view.counter - 1 > -1:
@@ -1149,23 +1332,27 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
     def button_t_(self):
         self.letters.append("'")
 
         if self.my_model.word.find("'") > -1:
-            list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+            self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                                range(len(self.my_model.word))]
-            string_from_list = ' '.join(list_of_letters)
-            self.my_view.word2_LineEdit.setPlaceholderText(str(string_from_list.upper()))
+            self.string_from_list = ' '.join(self.list_of_letters)
+            self.my_view.word2_LineEdit.setPlaceholderText(str(self.string_from_list.upper()))
 
-        list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
+        self.list_of_letters = ['_' if self.my_model.word[i] not in self.letters else self.my_model.word[i] for i in
                            range(len(self.my_model.word))]
-        guess = ''.join(list_of_letters)
+        self.guess = ''.join(self.list_of_letters)
 
         if self.my_model.word.find("'") == -1:
             if self.my_view.counter - 1 > -1:
@@ -1179,10 +1366,14 @@ class Controler:
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
                 self.my_view.buttonlw.setVisible(True)
+                self.my_view.buttonno.setVisible(True)
+                self.my_view.buttonyes.setVisible(True)
 
-        if guess == self.my_model.word:
-            self.my_view.buttonlw.setText('You won!!!')
+        if self.guess == self.my_model.word:
+            self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
+            self.my_view.buttonno.setVisible(True)
+            self.my_view.buttonyes.setVisible(True)
 
 # function for button with counter
     def button_text(self):
@@ -1233,7 +1424,7 @@ class Model:
 
     def set_word(self, new_word):
         self.word = new_word
-        self.l = 'You lost !!! \n The word was ' + self.word + ''
+        self.l = 'You lost !!! \n The word was ' + self.word + '\n New game?'
         # print('New word to guess {' + self.word + '} has been saved')
 
 
