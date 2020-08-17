@@ -1,6 +1,3 @@
-import os
-import subprocess
-from subprocess import Popen
 import sys
 from functools import partial
 from PyQt5.QtCore import Qt
@@ -31,6 +28,22 @@ class View(QMainWindow):
         self.createLine()
         self.createlw()
         self.createyesno()
+        self.j1but()
+        self.j2but()
+
+
+    def j1but(self):
+        self.j1 = QPushButton('0', self.my_widget)
+        self.j1.setStyleSheet("background-color: red")
+        self.j1.move(710, 200)
+        self.j1.setFixedSize(50, 50)
+
+    def j2but(self):
+        self.j2 = QPushButton('0', self.my_widget)
+        self.j2.setStyleSheet("background-color: blue")
+        self.j2.move(710, 270)
+        self.j2.setFixedSize(50, 50)
+
 
 # yes no buttons
     def createyesno(self):
@@ -273,6 +286,8 @@ class Controler:
         self.list_of_letters = []
         self.string_from_list = ''
         self.guess = ''
+        self.j1n = 0
+        self.j2n = 0
 
         self.my_view = view
         self.my_view.word_LineEdit.returnPressed.connect(partial(self.save_new_word))
@@ -445,11 +460,15 @@ class Controler:
                 self.button_text()
                 self.my_view.my_widget.repaint()
                 self.my_view.buttonlw.setText(self.my_model.l)
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.buttonlw.setVisible(True)
                 self.my_view.buttonno.setVisible(True)
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -475,6 +494,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -484,6 +505,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -510,6 +533,8 @@ class Controler:
 
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -519,6 +544,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -544,6 +571,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -553,6 +582,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -578,6 +609,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -587,6 +620,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -613,6 +648,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -622,6 +659,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -647,6 +686,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -656,6 +697,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -681,6 +724,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -690,6 +735,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -715,6 +762,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -724,6 +773,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -749,6 +800,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -758,6 +811,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -783,6 +838,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -792,6 +849,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -817,6 +876,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -826,6 +887,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -851,6 +914,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -860,6 +925,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -885,6 +952,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -894,6 +963,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -919,6 +990,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -928,6 +1001,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -953,6 +1028,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -962,6 +1039,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -987,6 +1066,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -996,6 +1077,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1021,6 +1104,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1030,6 +1115,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1055,6 +1142,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1064,6 +1153,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1089,6 +1180,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1098,6 +1191,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1123,6 +1218,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1132,6 +1229,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1157,6 +1256,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1166,6 +1267,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1191,6 +1294,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1200,6 +1305,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1225,6 +1332,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1234,6 +1343,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1259,6 +1370,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1268,6 +1381,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1293,6 +1408,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1302,6 +1419,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1327,6 +1446,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1336,6 +1457,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
@@ -1361,6 +1484,8 @@ class Controler:
                 self.my_view.my_widget.repaint()
 
             if self.my_view.counter - 1 < 0:
+                self.j1n += 1
+                self.my_view.j1.setText(str(self.j1n))
                 self.my_view.counter -= 1
                 self.button_text()
                 self.my_view.my_widget.repaint()
@@ -1370,6 +1495,8 @@ class Controler:
                 self.my_view.buttonyes.setVisible(True)
 
         if self.guess == self.my_model.word:
+            self.j2n += 1
+            self.my_view.j2.setText(str(self.j2n))
             self.my_view.buttonlw.setText('You won!!!\n New game?')
             self.my_view.buttonlw.setVisible(True)
             self.my_view.buttonno.setVisible(True)
