@@ -191,7 +191,7 @@ class View(QMainWindow):
         self.word_LineEdit.move(20, 20)
         # self.word_LineEdit.setFont(QFont('NewTimesRoman', 30))
         self.word_LineEdit.setAlignment(Qt.AlignLeft)
-        self.word_LineEdit.setPlaceholderText("Enter a word to guess and press 'Enter'...")
+        self.word_LineEdit.setPlaceholderText("The word shall only contain latin letters (- ' accepted), press Enter after entering it.")
         self.word_LineEdit.setReadOnly(False)
 
 # second line
@@ -420,9 +420,10 @@ class Controler:
         self.my_view.button26.show()
         self.my_view.button27.show()
         self.my_view.button28.show()
+        self.my_view.word_LineEdit.clear()
         self.my_view.word_LineEdit.setReadOnly(False)
         self.my_view.word_LineEdit.setVisible(True)
-        self.my_view.word_LineEdit.setPlaceholderText("Enter a word to guess and press 'Enter'...")
+        self.my_view.word_LineEdit.setPlaceholderText("The word shall only contain latin letters (- ' accepted), press Enter after entering it.")
         self.my_view.word2_LineEdit.setReadOnly(True)
         self.my_view.word2_LineEdit.setVisible(False)
         self.letters = []
