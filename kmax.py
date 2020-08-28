@@ -18,9 +18,11 @@ while i != n:
     i += 1
     if i == n:
         break
+# will complete later for series lesser than 3
 
-while ii != n:
+while ii < 2 * n:
     if l[i2] <= l[i3]:
+        print("1t")
         num = l[i2]
         l[i2] = l[i3]
         l[i3] = num
@@ -80,6 +82,7 @@ while ii != n:
                 i3 = 2
                 ii += 1
     if l[i1] <= l[i2]:
+        print("2t")
         num = l[i1]
         l[i1] = l[i2]
         l[i2] = num
@@ -139,6 +142,7 @@ while ii != n:
                 i3 = 2
                 ii += 1
     if l[i1] <= l[i3]:
+        print("3t")
         num = l[i2]
         l[i2] = l[i3]
         l[i3] = num
@@ -199,21 +203,26 @@ while ii != n:
                 i3 = 2
                 ii += 1
     if l[i3] <= l[i2] <= l[i1] and i3 != n - 2 and i3 > n:
+        print("4t")
         i1 += 2
         i2 += 2
         i3 += 2
         ii += 1
     if l[i3] <= l[i2] <= l[i1] and i3 == n - 2:
+        print("5t")
         i1 += 1
         i2 += 1
         i3 += 1
         ii += 1
     if l[i3] <= l[i2] <= l[i1] and i3 == n - 1:
+        print("6t")
         i1 = 0
         i2 = 1
         i3 = 2
         ii += 1
+    ii += 1
     print(ii)
+
 
 
 print(l[k])
