@@ -1,11 +1,11 @@
-n = input()
+n = input("length of the list, the number of numbers you have to enter\n")
 n = eval(n)
-k = input()
+k = input("the index of the greater number, the bigger it is the lesser the number will be \n")
 k = eval(k)
 l = []
 i = 0
 while i < n:
-    l += [input()]
+    l += [input("enter the number\n")]
     i += 1
     if i == n:
         break
