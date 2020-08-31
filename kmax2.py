@@ -5,10 +5,9 @@ k = eval(k)
 l = []
 i = 0
 while i < n:
-    l += [input("enter a number\n")]
+    l += [int(input("enter a number\n"))]
     i += 1
-    if i == n:
-        break
+
 i = 0
 i1 = 0
 num = 0
@@ -30,10 +29,5 @@ while i != n * n:
         i1 = 0
         i += 1
 
-    if i == n * n:
-        break
 
 print(l[k])
-print(l)
-l.sort(reverse=True)
-print(l)
