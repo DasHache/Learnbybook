@@ -1,78 +1,110 @@
 //#include <soi>
 #include <bits/stdc++.h>
 #include <vector>
-
+// new idea -> only take into account if a[ii] is bigger and not a[ii-1]
 
 signed main() {
     int t, n, h, counter = 0, v = 0; // t = cases, n=lenghv, h=height
     cin >> t;
+    cout << "we have t\n";
     for (int i = 0; i < t; i++){
         cin >> n;
+        cout << "we have n\n";
         vector <int> a;
         for (int ii = 0; ii < n; ii++){
             cin >> h;
+            cout << "we have h\n";
             a.push_back(h); 
         }
+        cout << "before while loop\n";
         vector <int> b;
-        for (;;){
+        int s = a.size();
+        cout << " taille de a " << s << "\n";
+        while (a.size()>2){
+            cout << "in the while loop\n";
             for (int ii = 1; ii < a.size(); ii++){
                 if (ii == n-1 && a[ii-1] > a[ii]){
+                    cout << " last ii and 1 > 2\n";
                     counter++;
-                    for (int mi = -1; mi < -1 * b.size() - 1;mi--){
-                        if(b[mi] == a[ii-1]){
-                            b.erase(b.begin() + mi);
-                        }else if(b[mi] > a[ii-1]){
-                            break;
+                    if (b.size() != 0){
+                        for (int mi = -1; mi < -1 * b.size() - 1;mi--){
+                            if(b[mi] == a[ii-1]){
+                                b.erase(b.begin() + mi);
+                            }else if(b[mi] > a[ii-1]){
+                                break;
+                            }
                         }
                     }
                     b.push_back(a[ii - 1]);
                 }else if (ii == n-1 && a[ii-1] < a[ii]){
+                    cout << " last ii and 1 < 2\n";
                     counter++;
-                    for (int mi = -1; mi < -1 * b.size() - 1;mi--){
-                        if(b[mi] == a[ii-1]){
-                            b.erase(b.begin() + mi);
-                        }else if(b[mi] > a[ii-1]){
-                            break;
+                    if (b.size() != 0){
+                        for (int mi = -1; mi < -1 * b.size() - 1;mi--){
+                            if(b[mi] == a[ii-1]){
+                                b.erase(b.begin() + mi);
+                            }else if(b[mi] > a[ii-1]){
+                                break;
+                            }
                         }
                     }
                     b.push_back(a[ii]);
                 }else if (a[ii-1] > a[ii]){
-                    for (int mi = -1; mi < -1 * b.size() - 1;mi--){
-                        if(b[mi] == a[ii-1]){
-                            b.erase(b.begin() + mi);
-                        }else if(b[mi] > a[ii-1]){
-                            break;
+                    cout << " 1 > 2\n";
+                    if (b.size() != 0){
+                        for (int mi = -1; mi < -1 * b.size() - 1;mi--){
+                            if(b[mi] == a[ii-1]){
+                                b.erase(b.begin() + mi);
+                            }else if(b[mi] > a[ii-1]){
+                                break;
+                            }
                         }
                     }
                     b.push_back(a[ii-1]);
                 }else if (a[ii-1] < a[ii]){
-                    for (int mi = -1; mi < -1 * b.size() - 1;mi--){
-                        if(b[mi] == a[ii-1]){
-                            b.erase(b.begin() + mi);
-                        }else if(b[mi] > a[ii-1]){
-                            break;
+                    cout << " 1 > 2\n";
+                    if (b.size() != 0){
+                        for (int mi = -1; mi < -1 * b.size() - 1;mi--){
+                            if(b[mi] == a[ii-1]){
+                                b.erase(b.begin() + mi);
+                            }else if(b[mi] > a[ii-1]){
+                                break;
+                            }
                         }
                     }
                     counter++;
-                        //b.size() != 2
+                }else if (a[ii-1] == a[ii]){
+                    cout << "1 == 2\n";
+                    for (int mi = -1; mi < -1 * b.size() - 1;mi--){
+                        if(b[mi] == a[ii-1]){
+                            b.erase(b.begin() + mi);
+                        }else if(b.size() == 0 || b[mi] > a[ii-1]){
+                            break;
+                        }
+                    }
+                    b.push_back(a[ii-1]);
                 }
+                a.erase(a.begin() + (ii-1));
+                ii = 1;    
             }
-            if (b.size() == 2 && b[0] != b[1]){
-                counter = counter + 2;
-                break;   
-            }else if (b.size() == 2 && b[0] == b[1]){
-                counter++;
-                break;
-            }else if (b.size() == 1){
-                counter++;
-                break;
-            }else{
-            a = b;
-            b.clear();
-            }
-            
+            //a = b; 
+            b.clear();    
         }
-        cout << "Case #" << i << ": " << counter << "\n";
+        cout << " taille de a " << s << "\n";
+        for (int w = 0; w < a.size(); w++){
+           cout << a[w] << " at place " << w;
+        }
+        if (a.size() == 2 && a[0] != a[1]){
+           counter = counter + 1;   
+        }else 
+        if (a.size() == 2 && a[0] == a[1]){
+            counter++;
+        }else if (a.size() == 1){
+            counter++;
+        }else if (a.size() == 0){
+            counter++;
+        }
+        cout << "\nCase #" << i << ": " << counter << "\n";
         counter = 0;
     }
 }                         
