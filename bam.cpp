@@ -2,7 +2,11 @@
 vector <vector<int> > splitter(vector <int> a, int b){
     vector <vector <int> > list;
     int ind = 0;
-    for (int i;i < a.size(); i++){
+    vector <int> empty1;
+    vector <int> empty2;
+    list.push_back(empty1);
+    list.push_back(empty2);
+    for (int i = 0; i < a.size(); i++){
         if (a[i] == b){
             ind = 1;
             continue;
@@ -14,29 +18,28 @@ vector <vector<int> > splitter(vector <int> a, int b){
         }
     }
     return list;
-
 }
-int sword_stroke(vector<int> a, int sum_len1){
+int sword_stroke(vector<int> a){
     if (a.size() == 0) return 0;
     if (a.size() == 1) return 1;
+    int sum_len = 1;
     int m = *max_element(a.begin(), a.end());
-    vector <vector <int> > lists = splitter(a, m); 
+    vector <vector <int> > lists = splitter(a, m);
     for (vector <int> a_list : lists){
-        int list_len = sword_stroke(a_list, sum_len1);
-        sum_len1 = sum_len1 + list_len;
+        int list_len = sword_stroke(a_list);
+        sum_len = sum_len + list_len;
     }
-    return sum_len1;
-
+    return sum_len;
 }
 signed main() {
-    int tests, n, height; // t = cases, n=lenghv, h=height
+    int tests, n; // t = cases, n=lenghv, h=height
     cin >> tests;
     for (int i = 0; i < tests; i++){
         cin >> n;
         vector <int> bamboos(n);
-        for(int& h : bamboos) cin >> height;
+        for(int& height : bamboos) cin >> height;
         int sum_len = 1;
-        int answer = sword_stroke(bamboos, sum_len);
+        int answer = sword_stroke(bamboos);
         cout << "Case #" << i << ": " << answer << endl;
     }
 }                         
